@@ -12,8 +12,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,6 +45,21 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value("Test@Test.com"))
                 .andExpect(jsonPath("$.password").value("pass123"));
+    }
+
+    @Test
+    public void createUser_should_return_400_when_request_isNotValid() throws Exception {
+        String userInJson = "{\"email\":\"\",\"password\":\"\"}";
+        User user = new User();
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/create")
+                .content(userInJson)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+
+        verify(userService,times(0)).createUser(user);
+
+
     }
 
 }
