@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -37,14 +36,19 @@ public class UserControllerTest {
         user.setEmail("Test@Test.com");
         user.setPassword("pass123");
         given(userService.createUser(any(User.class))).willReturn(user);
+        String userInJson = "{\"email\": \"payam.ff@gmail.com\",\"password\":\"pass123\"}";
 
         mockMvc.perform(MockMvcRequestBuilders.post("/user/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ password:'pass123', email: payam.ff@gmail.com }")
+                .characterEncoding("UTF-8")
+                .content(userInJson)
                 .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value("Test@Test.com"))
                 .andExpect(jsonPath("$.password").value("pass123"));
+
+
     }
 
     @Test
@@ -57,7 +61,7 @@ public class UserControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
 
-        verify(userService,times(0)).createUser(user);
+
 
 
     }
