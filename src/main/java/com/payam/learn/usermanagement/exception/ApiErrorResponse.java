@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,6 +15,7 @@ import lombok.Setter;
 public class ApiErrorResponse {
 private String error;
 private String message;
-
+private String timestamp;
+private int status;
 
 }

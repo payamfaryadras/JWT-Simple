@@ -5,6 +5,7 @@ import com.payam.learn.usermanagement.exception.CustomException;
 import com.payam.learn.usermanagement.exception.EntityType;
 import com.payam.learn.usermanagement.exception.ExceptionType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
