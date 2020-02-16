@@ -18,9 +18,9 @@ import java.util.UUID;
 @Entity
 public class User {
     @Column(unique = true)
-    @NotBlank
+    @NotBlank(message = "{user.email.blank}")
     private String email;
-    @NotBlank
+    @NotBlank(message = "{user.password.blank}")
     private String password;
     @Id
     private UUID id;
