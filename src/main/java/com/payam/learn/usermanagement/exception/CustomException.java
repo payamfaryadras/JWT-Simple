@@ -1,21 +1,14 @@
 package com.payam.learn.usermanagement.exception;
 
-import com.payam.learn.usermanagement.config.PropertiesConfig;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
-import java.text.MessageFormat;
-import java.util.Optional;
+
+import static com.payam.learn.usermanagement.utils.MessageHelper.format;
+import static com.payam.learn.usermanagement.utils.MessageHelper.getMessageTemplate;
 
 @Component
 public  class CustomException {
-
-    private static PropertiesConfig propertiesConfig;
-
-    @Autowired
-    public CustomException(PropertiesConfig propertiesConfig){
-        CustomException.propertiesConfig = propertiesConfig;
-    }
 
     public static class DuplicateEntityException extends RuntimeException {
         public DuplicateEntityException(String message) {
@@ -23,7 +16,6 @@ public  class CustomException {
         }
 
     }
-
 
     public static class EntityNotFoundException extends IllegalStateException {
         public EntityNotFoundException(String message) {
@@ -41,15 +33,4 @@ public  class CustomException {
     }
 
 
-    private static String getMessageTemplate(EntityType entityType, ExceptionType exceptionType) {
-        return entityType.name().concat(".").concat(exceptionType.getValue().toLowerCase());
-    }
-
-    private static String format(String template, String... args) {
-        Optional<String> templateContent = Optional.ofNullable(propertiesConfig.getConfigValue(template));
-        if (templateContent.isPresent()) {
-            return MessageFormat.format(templateContent.get(), args);
-        }
-        return String.format(template, args);
-    }
 }
