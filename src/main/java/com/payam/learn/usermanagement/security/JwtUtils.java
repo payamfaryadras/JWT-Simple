@@ -4,10 +4,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.crypto.SecretKey;
 import javax.xml.bind.DatatypeConverter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.payam.learn.usermanagement.constans.SecurityConstant.*;
 
@@ -43,14 +46,13 @@ public class JwtUtils {
         return getTokenBody(token).getSubject();
     }
 
+//TODO
+    public static List<SimpleGrantedAuthority> getUserRolesByToken(String token) {
 
-//    public static List<SimpleGrantedAuthority> getUserRolesByToken(String token) {
-//        List<Role> role = (List<Role>) getTokenBody(token)
-//                .get(SecurityConstant.ROLE_CLIMS);
-//        List<SimpleGrantedAuthority> authorities =
-//                role.stream().map(rol -> new SimpleGrantedAuthority(rol.getRoleName())).collect(Collectors.toList());
-//        return authorities;
-//    }
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("admin"));
+        return authorities;
+    }
 
 
 }
