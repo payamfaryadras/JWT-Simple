@@ -25,7 +25,7 @@ jobs:
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         
       run: |
-       VERSION='uuidgen'
+       VERSION=`uuidgen`
        docker login --username $DOCKERHUB_USERNAME  --password $DOCKERHUB_PASSWORD
        docker build -t pjamir/usermanagement:$VERSION .
        docker push pjamir/usermanagement:$VERSION
