@@ -17,7 +17,7 @@ jobs:
       with:
         java-version: 1.11
     - name: Run test with maven
-      run: mvn clean complie test
+      run: mvn clean compile test
       
     - name: Dockerize and push
       env:
