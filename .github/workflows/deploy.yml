@@ -19,7 +19,7 @@ jobs:
     - name: Run test with maven
       run: mvn clean compile test
       
-    - name: Dockerize and push
+    - name: Dockerize and Push
       env:
         DOCKERHUB_USERNAME:${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_PASSWORD:${{ secrets.DOCKERHUB_PASSWORD }}
